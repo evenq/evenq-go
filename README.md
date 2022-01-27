@@ -10,34 +10,60 @@ package main
 import "github.com/evenq/evenq-go"
 
 func init() {
+  // Initialize the Evenq client with your API key.
   evenq.Init(evenq.Options{
     ApiKey: "YOUR_API_KEY"
   })
 }
 
 func main() {
+  // Send an event with any JSON data
   evenq.Event("hello.world", evenq.Data{
     "string": "hello world",
     "number": 42,
     "boolean": true
   })
+  
+  // Query your data. Keep in mind that if you just sent your first event,
+  // it can take up to a minute until you can query your data
+  res, err := evenq.Query([]QueryRequest{
+    {
+        ID: "test.event",
+        From:    time.Now().UTC().Add(-time.Hour * 24),
+        To:      time.Now().UTC(),
+        Items: []Item{
+            {
+                Type:        TypeNumber,
+                Aggregation: AggCount,
+            },
+        },
+    },
+  })
+  
+  if err != nil {
+    panic(err)
+  }
+    
+  js, _ := json.MarshalIndent(res, "", " ")
+  log.Println(string(js))
 }
 ```
 
 #### Setup
 Initialize with your API key before sending events. You'll only have to do this once in your app lifecycle.
 ```
-  evenq.Init(evenq.Options{
+evenq.Init(evenq.Options{
     ApiKey:       "YOUR_API_KEY",
     MaxBatchSize: 500,   
     MaxBatchWait: 5,    
     BatchWorkers: 1,     
     Verbose:      true, 
-  })
+})
+
 ```
 
 
-#### Send events
+### Send events
 Send a single event with any data in `map[string]interface{}` format.
 ```
 // event timestamped to current time
@@ -56,6 +82,6 @@ evenq.PartitionedEvent("eventName", "somePartition", evenq.Data)
 evenq.PartitionedEventAt("eventName", "somePartition", time.Now(), evenq.Data)
 ```
 
-And that's it!
-
 For more info on naming conventions and examples check out our docs at https://app.evenq.io/docs
+
+

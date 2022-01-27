@@ -15,9 +15,9 @@ func TestQuery(t *testing.T) {
 
 	res, err := Query([]QueryRequest{
 		{
-			EventID: "test.event",
-			From:    time.Now().UTC().Add(-time.Hour * 24),
-			To:      time.Now().UTC(),
+			ID:   "test.event",
+			From: time.Now().UTC().Add(-time.Hour * 24),
+			To:   time.Now().UTC(),
 			Items: []Item{
 				{
 					Type:        TypeNumber,
@@ -27,7 +27,10 @@ func TestQuery(t *testing.T) {
 		},
 	})
 
-	js, _ := json.MarshalIndent(res, "", " ")
+	if err != nil {
+		t.Error(err)
+	}
 
-	log.Println(err, string(js))
+	js, _ := json.MarshalIndent(res, "", " ")
+	log.Println(string(js))
 }
