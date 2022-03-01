@@ -59,7 +59,6 @@ evenq.Init(evenq.Options{
     BatchWorkers: 1,     
     Verbose:      true, 
 })
-
 ```
 
 
@@ -84,4 +83,30 @@ evenq.PartitionedEventAt("eventName", "somePartition", time.Now(), evenq.Data)
 
 For more info on naming conventions and examples check out our docs at https://app.evenq.io/docs
 
-
+### Query Events
+You can query your data easily with your query helper. 
+```
+  // Query your data. Keep in mind that if you just sent your first event,
+  // it can take up to a minute until you can query your data
+  res, err := evenq.Query([]QueryRequest{
+    {
+        ID: "test.event",
+        From:    time.Now().UTC().Add(-time.Hour * 24),
+        To:      time.Now().UTC(),
+        Items: []Item{
+            {
+                Type:        TypeNumber,
+                Aggregation: AggCount,
+            },
+        },
+    },
+  })
+  
+  if err != nil {
+    panic(err)
+  }
+    
+  js, _ := json.MarshalIndent(res, "", " ")
+  log.Println(string(js))
+}
+```

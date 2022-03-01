@@ -13,7 +13,7 @@ import (
 
 // QueryRequest event data
 type QueryRequest struct {
-	ID            string      `json:"id"`
+	Name          string      `json:"name"`
 	PartitionKeys []string    `json:"partitionKeys"`
 	From          time.Time   `json:"from"`
 	To            time.Time   `json:"to"`

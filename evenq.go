@@ -14,7 +14,7 @@ import (
 const (
 	authHeader     = "x-evenq-key"
 	ingestEndpoint = "https://in.evenq.io/v1/events"
-	queryEndpoint  = "https://api.evenq.io/v1/query"
+	queryEndpoint  = "https://api.evenq.io/v1/queries"
 )
 
 var clientKey *string
@@ -118,13 +118,13 @@ func PartitionedEventAt(name string, partitionKey string, ts time.Time, data Dat
 }
 
 // FlushEvents processes any events left in the queue
-// and sends them to the qickmetrics server.
+// and sends them to the server.
 func FlushEvents() {
 	batcher.flush()
 }
 
 // FlushEventsSync processes any events left in the queue
-// and sends them to the qickmetrics server. This function
+// and sends them to the server. This function
 // is blocking until events are sent to ensure that the system
 // doesn't shut down before then
 func FlushEventsSync() {

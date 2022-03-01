@@ -15,7 +15,7 @@ func TestQuery(t *testing.T) {
 
 	res, err := Query([]QueryRequest{
 		{
-			ID:   "test.event",
+			Name: "test.event",
 			From: time.Now().UTC().Add(-time.Hour * 24),
 			To:   time.Now().UTC(),
 			Items: []Item{
