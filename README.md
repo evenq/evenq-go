@@ -1,4 +1,5 @@
 [![GoDoc](https://godoc.org/github.com/evenq/evenq-go?status.svg)](https://godoc.org/github.com/evenq/evenq-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/evenq/evenq-go)](https://goreportcard.com/report/github.com/evenq/evenq-go)
 ## The official Evenq client for go
 #### Installation
 `go get github.com/evenq/evenq-go`
