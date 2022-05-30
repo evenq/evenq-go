@@ -13,7 +13,7 @@ import (
 
 const (
 	authHeader     = "x-evenq-key"
-	ingestEndpoint = "https://in.evenq.io/v1/events"
+	ingestEndpoint = "https://api.evenq.io/v1/events"
 	queryEndpoint  = "https://api.evenq.io/v1/queries"
 )
 
