@@ -68,10 +68,14 @@ type Result struct {
 }
 
 type Stats struct {
-	EventsProcessed        int     `json:"eventsProcessed"`
-	EventsAnalyzed         int     `json:"eventsAnalyzed"`
+	EventsParsed           int     `json:"eventsParsed"`
+	EventsScanned          int     `json:"eventsScanned"`
+	EventsInvalid          int     `json:"eventsInvalid"`
 	MillionEventsPerSecond float64 `json:"meps"`
-	DurationTotal          int64   `json:"durationTotal"`
+	DurationTotal          int64   `json:"totalTime"`
+	DurationPlan           int64   `json:"planTime"`
+	DurationAnalyze        int64   `json:"analyzeTime"`
+	DurationProcess        int64   `json:"processTime"`
 }
 
 func Query(data []QueryRequest) ([]Result, error) {

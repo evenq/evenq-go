@@ -37,6 +37,20 @@ func TestEvent(t *testing.T) {
 	Event("testEvent", Data{"string": "lalala", "number": 123, "bool": true})
 }
 
+func TestPartitionedEvent(t *testing.T) {
+	Init(Options{
+		ApiKey:  os.Getenv("EVENQ_TESTKEY"),
+		Verbose: true,
+	})
+
+	PartitionedEvent("testEvent", "pk-b", Data{"string": "lalala", "number": 123, "bool": true})
+	PartitionedEvent("testEvent", "pk-b", Data{"string": "lalala", "number": 123, "bool": true})
+	PartitionedEvent("testEvent", "pk-b", Data{"string": "lalala", "number": 123, "bool": true})
+	PartitionedEvent("testEvent", "pk-b", Data{"string": "lalala", "number": 123, "bool": true})
+	PartitionedEvent("testEvent", "pk-b", Data{"string": "lalala", "number": 123, "bool": true})
+	FlushEventsSync()
+}
+
 func TestEnable(t *testing.T) {
 	// we disable event sending
 	SetEnabled(false)

@@ -102,11 +102,13 @@ func (b *batch) runFlushByTime() {
 }
 
 func (b *batch) wait() {
-	b.wg.Wait()
+	if b != nil {
+		b.wg.Wait()
+	}
 }
 
 func (b *batch) flush() {
-	if len(b.items) <= 0 {
+	if b == nil || len(b.items) == 0 {
 		return
 	}
 
